@@ -143,12 +143,6 @@ Critical rules:
         'Bringing your question before the throne\u2026',
       ];
 
-      const TRANSLATIONS = [
-        { id: 'ESV', label: 'ESV', full: 'English Standard Version' },
-        { id: 'NIV', label: 'NIV', full: 'New International Version' },
-        { id: 'KJV', label: 'KJV', full: 'King James Version' },
-        { id: 'NLT', label: 'NLT', full: 'New Living Translation' },
-      ];
 
       const PLACEHOLDERS = [
         'I\u2019m afraid I\u2019m not enough for what God is calling me to do\u2026',
@@ -267,34 +261,6 @@ Critical rules:
         );
       }
 
-      // ─── TranslationSelector ──────────────────────────────────────────────────
-
-      function TranslationSelector({ value, onChange, disabled }) {
-        return (
-          <div className="flex items-center gap-2 flex-wrap" role="group" aria-label="Choose Bible translation">
-            <span className="text-parchment-600 text-xs uppercase tracking-widest mr-1 select-none">
-              Translation
-            </span>
-            {TRANSLATIONS.map((t) => (
-              <button
-                key={t.id}
-                type="button"
-                onClick={() => onChange(t.id)}
-                disabled={disabled}
-                title={t.full}
-                aria-pressed={value === t.id}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 border ${
-                  value === t.id
-                    ? 'bg-gold-400/15 border-gold-400/40 text-gold-200'
-                    : 'bg-transparent border-parchment-400/15 text-parchment-400 hover:border-parchment-400/30 hover:text-parchment-200'
-                } disabled:opacity-40 disabled:cursor-not-allowed`}
-              >
-                {t.label}
-              </button>
-            ))}
-          </div>
-        );
-      }
 
       // ─── LoadingSkeleton ──────────────────────────────────────────────────────
 
@@ -386,7 +352,7 @@ Critical rules:
 
         return (
           <div
-            className="section-enter bg-ink-800 border border-gold-400/15 rounded-2xl p-7 relative group"
+            className="section-enter bg-ink-800 border-t-2 border-t-gold-400/50 rounded-2xl p-7 relative group"
             style={{ animationDelay: `${delay}ms` }}
           >
             <p className="font-serif text-2xl leading-relaxed text-parchment-100 mb-5">
@@ -543,7 +509,7 @@ Critical rules:
 
       // ─── InquiryForm ──────────────────────────────────────────────────────────
 
-      function InquiryForm({ onSubmit, isLoading, translation, onTranslationChange }) {
+      function InquiryForm({ onSubmit, isLoading }) {
         const [inquiry, setInquiry] = useState('');
         const [phIdx, setPhIdx] = useState(0);
         const CHAR_LIMIT = 500;
@@ -576,7 +542,7 @@ Critical rules:
                 placeholder={PLACEHOLDERS[phIdx]}
                 disabled={isLoading}
                 aria-label="Your question or situation"
-                className="w-full bg-ink-800/70 border border-parchment-400/12 rounded-2xl px-5 py-4 text-parchment-100 placeholder-parchment-600 text-base leading-relaxed transition-colors duration-200 hover:border-parchment-400/20 focus:border-gold-400/40 disabled:opacity-50"
+                className="w-full bg-ink-800/70 border border-parchment-400/12 rounded-2xl px-5 py-4 text-parchment-100 placeholder-parchment-600 placeholder:italic placeholder:font-serif text-base leading-relaxed transition-colors duration-200 hover:border-parchment-400/20 focus:border-gold-400/40 disabled:opacity-50"
               />
               {showCount && (
                 <span
@@ -589,18 +555,13 @@ Critical rules:
               )}
             </div>
 
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-              <TranslationSelector
-                value={translation}
-                onChange={onTranslationChange}
-                disabled={isLoading}
-              />
+            <div className="flex justify-end">
               <button
                 type="submit"
                 disabled={isLoading || !inquiry.trim()}
-                className="sm:flex-shrink-0 px-8 py-3 bg-gold-400 hover:bg-gold-200 disabled:opacity-40 disabled:cursor-not-allowed text-ink-900 font-semibold rounded-xl transition-colors duration-200 text-sm tracking-wide"
+                className="px-8 py-3 bg-gold-400 hover:bg-gold-200 disabled:opacity-40 disabled:cursor-not-allowed text-ink-900 font-semibold rounded-xl transition-colors duration-200 text-sm tracking-wide"
               >
-                {isLoading ? 'Seeking\u2026' : 'Seek'}
+                {isLoading ? 'Asking\u2026' : 'Ask'}
               </button>
             </div>
           </form>
@@ -617,9 +578,6 @@ Critical rules:
           () => !localStorage.getItem('selah_api_key')
         );
         const [keyError, setKeyError] = useState('');
-        const [translation, setTranslation] = useState(
-          () => localStorage.getItem('selah_translation') || 'ESV'
-        );
         const [loading, setLoading] = useState(false);
         const [response, setResponse] = useState(null);
         const [error, setError] = useState('');
@@ -644,10 +602,6 @@ Critical rules:
           setKeyError('');
         }, []);
 
-        const handleTranslation = useCallback((t) => {
-          setTranslation(t);
-          localStorage.setItem('selah_translation', t);
-        }, []);
 
         const parseResponse = useCallback((text) => {
           // Try direct JSON parse
@@ -682,7 +636,7 @@ Critical rules:
             const doFetch = async (attempt) => {
               const systemPrompt = SAGE_SYSTEM_PROMPT.replace(
                 /\{translation\}/g,
-                translation
+                'NIV'
               );
               const res = await fetch('https://api.anthropic.com/v1/messages', {
                 method: 'POST',
@@ -740,7 +694,7 @@ Critical rules:
               // Update session history (newest first, deduped, max 3)
               setHistory((prev) => {
                 const next = [
-                  { inquiry, translation, response: parsed },
+                  { inquiry, response: parsed },
                   ...prev.filter((h) => h.inquiry !== inquiry),
                 ].slice(0, 3);
                 sessionStorage.setItem('selah_history', JSON.stringify(next));
@@ -771,7 +725,7 @@ Critical rules:
               setLoading(false);
             }
           },
-          [apiKey, translation, parseResponse, hasResponded, donationDismissed]
+          [apiKey, parseResponse, hasResponded, donationDismissed]
         );
 
         const handleRetry = useCallback(() => {
@@ -825,11 +779,11 @@ Critical rules:
 
               {/* Header */}
               <header className="text-center mb-14">
-                <h1 className="font-serif text-6xl sm:text-7xl font-semibold text-parchment-100 tracking-tight mb-3">
+                <h1 className="font-serif text-6xl sm:text-7xl font-normal text-parchment-100 tracking-tight mb-3">
                   Selah
                 </h1>
-                <p className="text-parchment-600 text-xs uppercase tracking-[0.3em]">
-                  Pause &middot; Hear &middot; Receive
+                <p className="font-serif italic text-parchment-600 text-sm tracking-wide">
+                  &mdash; pause. listen. receive.
                 </p>
               </header>
 
@@ -840,8 +794,6 @@ Critical rules:
               <InquiryForm
                 onSubmit={seekWisdom}
                 isLoading={loading}
-                translation={translation}
-                onTranslationChange={handleTranslation}
               />
 
               {/* Error state */}
