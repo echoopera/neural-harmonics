@@ -1,0 +1,87 @@
+{
+  "date": "2026-03-02",
+  "type": "entry",
+  "title": "The weight of empty space",
+  "subtitle": "What you leave out is as deliberate — and as powerful — as what you put in.",
+  "theme": "Design Thinking",
+  "principles": [
+    {
+      "number": "01",
+      "headline": "Whitespace is not <em>wasted</em> space.",
+      "body": [
+        "Every beginner designer's instinct is to fill. Every experienced designer's practice is to resist that instinct. White space is not the absence of design — it is design in its most confident form.",
+        "When you give elements room to breathe, you give users room to think. Crowded layouts create cognitive pressure. Spacious layouts create clarity. The emptiness is doing work you can't see."
+      ],
+      "callout": "A layout that feels 'empty' to the designer often feels 'calm' to the user.",
+      "visual": "frame"
+    },
+    {
+      "number": "02",
+      "headline": "Every element you add costs the <em>user</em> something.",
+      "body": [
+        "Attention is finite. Every button, label, icon, and line of text is a micro-tax on the person using your product. The question isn't 'should we add this?' — it's 'is this worth what it costs?'",
+        "Most cluttered interfaces aren't the result of bad design. They're the result of too many stakeholders, too little restraint, and the mistaken belief that more information means more value."
+      ],
+      "callout": "The best interface element is the one you convinced someone not to add.",
+      "visual": "rings"
+    },
+    {
+      "number": "03",
+      "headline": "Reduction is a <em>creative</em> act.",
+      "body": [
+        "It takes more skill to remove than to add. Anyone can put things on a page. It takes deep understanding of the problem — and the courage to be wrong — to take things away.",
+        "Editing is designing. The version with fewer elements is usually the version that required more design thinking, not less."
+      ],
+      "callout": "Simplicity is not the absence of complexity. It's complexity that has been fully understood and then resolved.",
+      "visual": "clarity"
+    }
+  ],
+  "actions": [
+    {
+      "tag": "Morning",
+      "title": "Before adding anything to a design, ask: what can I remove first?",
+      "desc": "Make subtraction your default move. Start each design session by looking for what doesn't belong.",
+      "example": "\"I had seven items in the nav. I asked myself which three the user actually needs on their first visit. Now there are four.\""
+    },
+    {
+      "tag": "Reviews",
+      "title": "In your next critique, present the version with the most removed.",
+      "desc": "Don't show the 'safe' version with everything in. Show the stripped-back version and let the room argue for what to add back.",
+      "example": "\"I showed the team a version with no secondary actions at all. They had to justify every one they wanted to restore.\""
+    },
+    {
+      "tag": "Daily habit",
+      "title": "Pick one UI element in your current work and spend 10 minutes trying to eliminate it.",
+      "desc": "If you can't eliminate it, the exercise still sharpens your understanding of why it belongs.",
+      "example": "\"I spent 10 minutes trying to remove the breadcrumb. I couldn't. But now I understand exactly why it's there — which made me redesign it better.\""
+    },
+    {
+      "tag": "Constraints",
+      "title": "Design a version that's half the visual weight of your current design.",
+      "desc": "Cut font sizes, reduce contrast levels, shrink UI elements. Then bring them back only where they earn their presence.",
+      "example": "\"I made everything 20% smaller and 20% lighter. The thing that looked worst was the primary CTA — which told me it wasn't doing its job in the original.\""
+    },
+    {
+      "tag": "Communication",
+      "title": "When defending a decision to remove something, lead with user cost, not aesthetic preference.",
+      "desc": "'It looks cleaner' loses arguments. 'It reduces the time to the primary action by removing a competing choice' wins them.",
+      "example": "\"I didn't say it 'felt busy'. I said 'users are spending 4 seconds looking at this section before making a decision. If we remove it, that decision becomes faster.'\""
+    },
+    {
+      "tag": "Reflection",
+      "title": "At end of week, look at something you shipped and ask: what's the one thing I'd remove now?",
+      "desc": "Design is never done. The edit that wasn't possible before shipping is still worth noting.",
+      "example": "\"I shipped it with the helper text. Three weeks later I can see it's unnecessary — users never read it and the input is clear enough without it.\""
+    }
+  ],
+  "coda": {
+    "eyebrow": "The Editor's Eye",
+    "quote": "The most powerful design tool you have is the <em>delete key</em>.",
+    "footer": "Restraint is not timidity. It is the highest form of design confidence."
+  },
+  "closingQuote": {
+    "text": "It seems that perfection is attained not when there is nothing more to add, but when there is nothing more to remove.",
+    "attribution": "Antoine de Saint-Exupéry",
+    "role": "Wind, Sand and Stars (1939)"
+  }
+}

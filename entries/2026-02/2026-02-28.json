@@ -1,0 +1,64 @@
+{
+  "date": "2026-02-28",
+  "type": "summary",
+  "month": "February 2026",
+  "title": "Before the Line Hits the Page",
+  "subtitle": "A month spent remembering that the most important design decisions happen before anyone opens a tool.",
+  "themes": [
+    {
+      "title": "The Discipline of Looking",
+      "summary": "Design begins with observation, not ideation. Before we can solve anything worth solving, we have to develop the patience to see what is actually in front of us — not what we expect to see, not what we saw last time, but what is here now. This is harder than it sounds, and it is the foundation everything else rests on."
+    },
+    {
+      "title": "Questioning the Inherited",
+      "summary": "Every project arrives pre-loaded with assumptions — about users, about constraints, about what success looks like. Most of these assumptions were never decisions at all; they were inherited from the last project, the last team, the last decade. First principles thinking means having the nerve to ask whether the brief itself is right before committing to solving it."
+    },
+    {
+      "title": "The Space Before the Solution",
+      "summary": "There is a productive liminal state between understanding a problem and reaching for a solution. Designers who learn to stay in that space — to resist the gravitational pull of the first plausible answer — consistently produce work that is more original, more durable, and more deeply connected to real human needs. Comfort with ambiguity is not a personality trait; it is a practice."
+    },
+    {
+      "title": "Building from Bedrock",
+      "summary": "Foundations are not glamorous. They do not demo well. But every design system, every product strategy, every interface that holds up under the weight of real use was built by someone who cared about the parts nobody sees. February is a reminder that rigor in the early, invisible work is what makes the visible work possible."
+    }
+  ],
+  "exercises": [
+    {
+      "number": "01",
+      "title": "The Slow Observation Log",
+      "duration": "30 min",
+      "format": "Solo",
+      "desc": "Choose a physical space you pass through daily — a lobby, a crosswalk, a break room. Sit in it for 20 minutes with a notebook. For the first 10 minutes, write down only what you literally see: materials, dimensions, wear patterns, how light falls, where people pause, what they touch. No interpretations. For the next 10 minutes, write down what you notice that you have never noticed before despite being in this space regularly. Close by writing three questions the space raises about the people who use it.",
+      "outcome": "A one-page observation log and a sharpened awareness of the gap between assumption and attention."
+    },
+    {
+      "number": "02",
+      "title": "The Five-Why Sprint",
+      "duration": "45 min",
+      "format": "Team of 2–4",
+      "desc": "Take a current project brief or feature request. One person reads the core ask aloud. The group then applies five rounds of 'why' — not to the user problem, but to the business decision that generated the brief. Write each answer on a shared doc. After five rounds, compare the original brief to the root motivation you uncovered. Spend the final 15 minutes rewriting the brief in one paragraph that reflects the deeper motivation rather than the surface request.",
+      "outcome": "A reframed brief that connects the work to its actual purpose, and a shared understanding of whether the team is solving the right problem."
+    },
+    {
+      "number": "03",
+      "title": "Assumption Inventory",
+      "duration": "25 min",
+      "format": "Solo writing exercise",
+      "desc": "Open a blank document and title it with the name of a project you are currently working on. Set a timer for 15 minutes and list every assumption you are carrying — who the user is, what they want, what the constraints are, what success looks like. Do not filter; write fast. When the timer ends, mark each assumption: V (validated — you have direct evidence), H (hypothesized — you believe it but haven't confirmed it), or I (inherited — someone told you this and you never questioned it). Count the ratio.",
+      "outcome": "A written inventory that makes invisible assumptions visible, with a clear map of where your project's foundation is solid and where it is standing on borrowed confidence."
+    },
+    {
+      "number": "04",
+      "title": "The Precedent Audit",
+      "duration": "60 min",
+      "format": "Solo or pair",
+      "desc": "Select a design pattern your team uses repeatedly — a navigation model, a card layout, a notification system. Trace its lineage: where did this pattern originate in your product? Who introduced it and why? Then gather three examples of how other products solve the same underlying problem using a fundamentally different approach. For each alternative, write two sentences on what it prioritizes that your current pattern does not. Close with a one-paragraph assessment: is your inherited pattern still the right choice, or is it simply the familiar one?",
+      "outcome": "A documented audit of one design pattern with a clear-eyed evaluation of whether it has earned its place or merely inherited it."
+    }
+  ],
+  "closingQuote": {
+    "text": "The details are not the details. They make the design.",
+    "attribution": "Charles Eames",
+    "role": "As cited in An Eames Primer, Eames Demetrios (Thames &amp; Hudson, 2001)"
+  }
+}

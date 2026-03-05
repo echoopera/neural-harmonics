@@ -1,0 +1,71 @@
+{
+  "date": "2026-02-27",
+  "type": "entry",
+  "title": "Before You Make Anything, Ask Everything",
+  "subtitle": "Design begins not with a solution, but with the willingness to sit inside a question long enough to understand what it's really asking.",
+  "theme": "Design Foundations",
+  "principles": [
+    {
+      "number": "01",
+      "headline": "Design is <em>inquiry</em> before it is craft",
+      "body": [
+        "There is an almost gravitational pull toward making. We open our tools, we sketch, we prototype — and all of that matters. But the designers who consistently produce work that endures share a habit that precedes every pixel and every prototype: they ask questions that reframe the problem before they ever attempt to solve it.",
+        "This is not about research as a phase. It is about inquiry as a disposition — a way of moving through every stage of the work. The best design decisions are downstream of the best questions. When we train ourselves to linger in the question space, we stop solving the wrong problems with increasing precision."
+      ],
+      "callout": "The quality of a design is bounded by the quality of the question that prompted it.",
+      "visual": "rings"
+    },
+    {
+      "number": "02",
+      "headline": "First principles are <em>earned</em>, not inherited",
+      "body": [
+        "Every discipline accumulates conventions — patterns, heuristics, best practices. They exist for good reason: they encode hard-won knowledge. But conventions are averages. They describe what has worked across many contexts, not what will work in yours.",
+        "Thinking from first principles means temporarily setting aside what you've been told works and asking: what do I actually know to be true here? What does this specific person, in this specific moment, actually need? It is slower. It is uncomfortable. And it is the only reliable way to arrive at something genuinely new."
+      ],
+      "callout": "Convention tells you what to repeat. First principles tell you what to invent.",
+      "visual": "clarity"
+    }
+  ],
+  "actions": [
+    {
+      "tag": "Morning Practice",
+      "title": "Write the question, not the answer",
+      "desc": "Before you open any design tool today, open a blank document and write the single most important question your current project is trying to answer. Don't refine it. Don't answer it. Just let it sit.",
+      "example": "Instead of 'Design the onboarding flow,' try: 'What does a new user need to believe about this product in their first sixty seconds?'"
+    },
+    {
+      "tag": "Reframe",
+      "title": "Challenge one assumption you inherited",
+      "desc": "Pick one constraint or direction on your current project that you accepted without questioning. Spend five minutes asking: is this actually true, or is it just familiar?",
+      "example": "You were told users want fewer steps. But do they want fewer steps, or do they want each step to feel worthwhile?"
+    },
+    {
+      "tag": "Observation",
+      "title": "Watch someone use something — anything — for two minutes",
+      "desc": "Not a usability test. Just watch a person interact with a product, a door handle, a coffee machine. Notice where they hesitate. Hesitation is a question the design failed to answer.",
+      "example": "A colleague pauses before tapping a button. That pause is data. What were they uncertain about?"
+    },
+    {
+      "tag": "Capture",
+      "title": "Start a 'questions I didn't ask' list",
+      "desc": "Create a running note where you log questions that occur to you after a meeting, a review, or a critique. The questions you didn't ask in the moment are often the ones that matter most.",
+      "example": "'Why are we optimizing for engagement when the user's stated goal is to finish and leave?'"
+    },
+    {
+      "tag": "Vocabulary",
+      "title": "Replace 'I think we should' with 'What if we'",
+      "desc": "For one day, reframe every design opinion you offer as a question. This is not about being tentative — it is about making space for the room to think with you instead of react to you.",
+      "example": "'I think the nav should be simpler' becomes 'What if the nav only showed what's relevant to this task?'"
+    }
+  ],
+  "coda": {
+    "eyebrow": "Why This Blog Exists",
+    "quote": "This is a space for the <em>thinking behind the making</em> — a daily practice of returning to the ideas that shape how we design, not just what we design.",
+    "footer": "One entry. Every day. Starting now."
+  },
+  "closingQuote": {
+    "text": "Recognizing the need is the primary condition for design.",
+    "attribution": "Charles Eames",
+    "role": "Qu'est ce que le design?, Musée des Arts Décoratifs, Paris (1972)"
+  }
+}

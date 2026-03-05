@@ -1,0 +1,93 @@
+{
+  "date": "2026-03-03",
+  "type": "entry",
+  "title": "Three principles that change how you see.",
+  "subtitle": "The most transformative shifts in design thinking aren't methods or frameworks. They're changes in orientation — how you position yourself in relation to the work.",
+  "theme": "Design Thinking",
+  "principles": [
+    {
+      "number": "01",
+      "headline": "Fall in love with the <em>problem</em>, not the solution.",
+      "body": [
+        "Too often, teams rush past problem definition and pour most of their effort into building the answer. The best design thinkers invert this.",
+        "When you truly understand why something is broken — the underlying human tension, not just the surface complaint — the right solution often becomes obvious. And you stop defending bad ideas, because you were never attached to them in the first place."
+      ],
+      "callout": "The deeper you go into the problem, the less you need to argue about the solution.",
+      "visual": "rings"
+    },
+    {
+      "number": "02",
+      "headline": "Clarity is a form of <em>authority</em>.",
+      "body": [
+        "The person who can most clearly articulate the problem usually wins the room. Not the one with the most polished mockup or the loudest opinion.",
+        "Precision about the problem is power. When you can name the tension better than anyone else in the room, people stop debating and start listening. This is why the best design thinking begins with writing — not sketching."
+      ],
+      "callout": "Before you pick up a pen, be able to say the problem in one sentence that no one can argue with.",
+      "visual": "clarity"
+    },
+    {
+      "number": "03",
+      "headline": "Constraints are not limits. They are the <em>source</em>.",
+      "body": [
+        "Constraints — time, budget, scope — tend to sharpen design decisions rather than weaken them. When resources are unlimited, focus disappears. Some of the best design work emerges from having to make hard tradeoffs.",
+        "When you feel constrained, you're actually in the most productive creative state. The constraint forces prioritization. It demands you know what actually matters. It strips away comfortable options and leaves only the necessary ones."
+      ],
+      "callout": "When you don't know what to cut, you don't know what you believe in.",
+      "visual": "frame"
+    }
+  ],
+  "actions": [
+    {
+      "tag": "Morning",
+      "title": "Write the problem before you open any tool.",
+      "desc": "Start each day or project by writing one clear sentence that defines the problem you're solving. No Figma, no Sketch, no email — just the problem in plain language first.",
+      "example": "\"Users abandon the checkout flow — not because it's too long, but because they don't trust the payment screen.\""
+    },
+    {
+      "tag": "In meetings",
+      "title": "Lead every critique with the problem statement, not the design.",
+      "desc": "Before showing work, state the problem the design is solving. It sets the frame, aligns the room, and gives feedback a target — instead of inviting unconstrained opinions.",
+      "example": "\"Before I show the screens — the problem we're solving is that new users can't tell what to do first. Keep that in mind as you look at this.\""
+    },
+    {
+      "tag": "Daily habit",
+      "title": "Kill one assumption a day.",
+      "desc": "Identify one thing you're taking for granted about a current project and question it. Sometimes the assumption is valid — but naming it makes it a choice, not a blind spot.",
+      "example": "\"We've assumed users read the onboarding copy. What if they don't? Does the product still make sense?\""
+    },
+    {
+      "tag": "Constraints",
+      "title": "Treat your tightest deadline as a design tool.",
+      "desc": "When time is short, ask: if I could only ship one thing, what would it be? That answer reveals what you actually believe in — and often produces the sharpest work.",
+      "example": "\"We have two days. We're cutting the preference panel entirely and shipping just the smart default. That's the real bet anyway.\""
+    },
+    {
+      "tag": "Communication",
+      "title": "Replace \u201cI think we should\u2026\u201d with \u201cThe problem is\u2026\u201d",
+      "desc": "Shift your language from solutions to problems in Slack, docs, and presentations. It signals depth of thinking and invites collaboration rather than debate.",
+      "example": "\"The problem is that the empty state gives users no path forward — not that we need a better illustration.\""
+    },
+    {
+      "tag": "Feedback",
+      "title": "When you receive critique, listen for the problem beneath it.",
+      "desc": "'I don't like this button' is a surface reaction. The underlying problem might be trust, confusion, or hierarchy. Train yourself to hear the tension beneath the feedback — that's what to fix.",
+      "example": "\"They said the layout felt busy. What they meant was: they couldn't find the action they came here to take.\""
+    },
+    {
+      "tag": "Weekly",
+      "title": "Once a week, explain your work to someone outside design.",
+      "desc": "If you can't make a non-designer understand the problem you're solving and why it matters, you don't own it clearly enough yet. Clarity under translation is the real test.",
+      "example": "\"I explained the navigation redesign to someone in finance. When they asked 'so what was broken before?' — I realized I couldn't answer it simply. That was the signal.\""
+    }
+  ],
+  "coda": {
+    "eyebrow": "The Foundation",
+    "quote": "The best design is made by people who are <em>unreasonably curious</em> about the problem.",
+    "footer": "These three principles are not a process. They are a posture."
+  },
+  "closingQuote": {
+    "text": "It\u2019s not enough that we build products that function, that are understandable and usable \u2014 we also need to build products that bring joy and excitement, pleasure and fun, and yes, beauty to people\u2019s lives.",
+    "attribution": "Don Norman",
+    "role": "Cognitive scientist &amp; author, The Design of Everyday Things"
+  }
+}

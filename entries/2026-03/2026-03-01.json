@@ -1,0 +1,81 @@
+{
+  "date": "2026-03-01",
+  "type": "entry",
+  "title": "The questions you don't ask",
+  "subtitle": "Most design failures aren't execution problems. They're investigation problems.",
+  "theme": "Design Thinking",
+  "principles": [
+    {
+      "number": "01",
+      "headline": "Every answer hides a better question.",
+      "body": [
+        "When we accept the first answer we find, we stop designing. The most dangerous moment in any project is when the team feels like they understand the problem. That confidence is often the beginning of a wrong turn.",
+        "Strong designers treat every answer as a door — behind it is another, more precise question. They keep going until the question feels almost too simple. That's when you're close."
+      ],
+      "callout": "The quality of your design is a direct reflection of the quality of your questions.",
+      "visual": "rings"
+    },
+    {
+      "number": "02",
+      "headline": "Reframe before you <em>redesign</em>.",
+      "body": [
+        "A new interface won't fix a broken mental model. Before reaching for the design tool, ask whether you're solving for the right layer of the problem. Is it a navigation problem or a trust problem? An information problem or a priority problem?",
+        "The reframe costs nothing. Skipping it costs everything."
+      ],
+      "callout": "You can't polish your way out of a problem that was never clearly defined.",
+      "visual": "clarity"
+    },
+    {
+      "number": "03",
+      "headline": "Sit with <em>discomfort</em> longer than feels productive.",
+      "body": [
+        "There's a moment in every project where the problem feels unsolvable and the constraints feel impossible. Most designers escape this moment by jumping to solutions. The best ones stay.",
+        "The discomfort is not a sign that you're stuck. It's a sign that you're in the right territory. Solutions that come too easily are usually solutions to the wrong problem."
+      ],
+      "callout": "The longer you can tolerate not knowing, the better your eventual answer will be.",
+      "visual": "frame"
+    }
+  ],
+  "actions": [
+    {
+      "tag": "Morning",
+      "title": "Start with 'Why is this a problem at all?' before 'How do we solve it?'",
+      "desc": "Before any design session, take 5 minutes to write down why the problem exists, not what the solution should be. It forces a different kind of attention.",
+      "example": "\"Why do users drop off at step 3? Not 'how do we redesign step 3' — but why does that friction exist in the first place?\""
+    },
+    {
+      "tag": "In meetings",
+      "title": "Replace 'here's my solution' with 'here's what I found out'",
+      "desc": "Lead with investigation, not prescription. Show the team what you learned before showing them what you made.",
+      "example": "\"I spent two hours watching recordings of users on this flow. Here's the three moments where everything breaks down.\""
+    },
+    {
+      "tag": "Daily habit",
+      "title": "Write one question you can't yet answer about your current project.",
+      "desc": "Keep a running list. Unanswered questions are your most valuable design tool.",
+      "example": "\"I still don't know why power users skip the onboarding entirely. That tells me something important I haven't figured out yet.\""
+    },
+    {
+      "tag": "Constraints",
+      "title": "When stuck, go narrower — not broader.",
+      "desc": "Scope creep is often a symptom of an unclear problem. When you feel lost, constrain the problem further rather than expanding the solution space.",
+      "example": "\"Instead of redesigning the whole settings page, I'm going to focus on why users can't find the notification preferences.\""
+    },
+    {
+      "tag": "Reflection",
+      "title": "End a project by writing what you would have asked on day one if you'd known what you know now.",
+      "desc": "This becomes the starting point for the next one.",
+      "example": "\"If I'd known the real problem was trust, not discoverability, I would have started with the copy — not the navigation.\""
+    }
+  ],
+  "coda": {
+    "eyebrow": "The Investigator's Posture",
+    "quote": "Design is the art of making the invisible <em>visible</em> — and that begins with the courage to keep asking.",
+    "footer": "Questions are not obstacles to progress. They are the work."
+  },
+  "closingQuote": {
+    "text": "The formulation of a problem is often more essential than its solution.",
+    "attribution": "Albert Einstein &amp; Leopold Infeld",
+    "role": "The Evolution of Physics (1938)"
+  }
+}

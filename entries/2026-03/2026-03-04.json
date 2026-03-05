@@ -1,0 +1,71 @@
+{
+  "date": "2026-03-04",
+  "type": "entry",
+  "title": "What expertise costs you",
+  "subtitle": "The more fluent you become in design, the harder it gets to see what\u2019s actually in front of you. That tension doesn\u2019t resolve. It gets managed.",
+  "theme": "Designer\u2019s Posture",
+  "principles": [
+    {
+      "number": "01",
+      "headline": "Expertise is a filter, not just a <em>lens</em>",
+      "body": [
+        "The more you know about a domain, the more automatic your pattern recognition becomes. That\u2019s efficiency \u2014 and it is also a kind of blindness. Senior designers have seen this problem before. They know what it looks like. They know what usually works. And that knowledge, if left unchecked, prevents them from seeing what\u2019s unusual, unexpected, or genuinely new about the situation in front of them.",
+        "The curse of knowledge isn\u2019t only about explaining things to non-experts. It\u2019s about your own capacity to observe. When you\u2019ve designed fifteen onboarding flows, the sixteenth begins to look like the others before you\u2019ve read the brief. The pattern you recognize is the observation you didn\u2019t make."
+      ],
+      "callout": "The pattern you recognize is the observation you didn\u2019t make.",
+      "visual": "clarity"
+    },
+    {
+      "number": "02",
+      "headline": "The beginner\u2019s mind is a <em>practiced</em> skill",
+      "body": [
+        "This is not about pretending you don\u2019t know things. It is about maintaining the discipline of setting aside what you know long enough to see what is actually there. In Zen practice, this is called shoshin \u2014 the beginner\u2019s mind. In research, it is called neutrality. In design, it is the difference between seeing an interface and seeing the person who uses it.",
+        "Cultivating this doesn\u2019t require forgetting your expertise. It requires noticing when your expertise is doing the looking for you \u2014 and making a deliberate choice to slow down and let the problem speak. The most experienced designers aren\u2019t the ones who have stopped asking obvious questions. They\u2019re the ones who still do."
+      ],
+      "callout": "You can\u2019t hear what the problem is saying if you already think you know.",
+      "visual": "rings"
+    }
+  ],
+  "actions": [
+    {
+      "tag": "Before you start",
+      "title": "Name your assumptions before opening any tool",
+      "desc": "Before your first design session of the day, write down every assumption you\u2019re bringing to the work. Not to challenge them \u2014 just to name them. Assumptions you can see are assumptions you can question.",
+      "example": "\u201cI\u2019m assuming users will read the confirmation screen. I\u2019m assuming the biggest problem is discoverability. I haven\u2019t confirmed either of these.\u201d"
+    },
+    {
+      "tag": "With the team",
+      "title": "Explain the problem to someone who knows nothing about it",
+      "desc": "Find someone outside your project \u2014 a colleague from a different team, a friend, anyone without context. Explain the problem you\u2019re solving. Notice where you stumble, where you use jargon, and where their questions reveal what you\u2019ve stopped questioning.",
+      "example": "\u201cThey asked \u2018but why would someone want to do that in the first place?\u2019 \u2014 and I realized I\u2019d never actually answered that question myself.\u201d"
+    },
+    {
+      "tag": "Observation",
+      "title": "Look at something familiar for ten minutes without editing instinct",
+      "desc": "Pick a screen, a flow, or a product you have worked on or reviewed many times. Look at it for ten minutes with no intention to fix it. Just observe. Notice what you see when you\u2019re not looking for problems to solve.",
+      "example": "\u201cI watched the loading state for the first time in months. I\u2019d always thought of it as neutral. I realized it\u2019s actually the most anxious moment in the whole flow.\u201d"
+    },
+    {
+      "tag": "In meetings",
+      "title": "Ask one \u2018obvious\u2019 question today",
+      "desc": "In your next design review or team meeting, ask the question that feels too basic to say out loud. The one you\u2019ve been assuming everyone already knows the answer to. Those questions are frequently the most clarifying ones in the room.",
+      "example": "\u201cI know this might seem basic \u2014 but what does success actually look like for this feature? Not metrics. What does it look like for the person using it?\u201d"
+    },
+    {
+      "tag": "Pattern check",
+      "title": "Name the pattern before you trust it",
+      "desc": "When you recognize a familiar pattern in a new problem, write it down explicitly: \u201cThis looks like a [navigation problem / trust problem / discoverability problem].\u201d Then spend five minutes looking specifically for evidence that it isn\u2019t. That friction is where the real insight often lives.",
+      "example": "\u201cI immediately read this as a content hierarchy problem. When I forced myself to look for evidence it wasn\u2019t, I found three users trying to do something the flow had never been designed for.\u201d"
+    }
+  ],
+  "coda": {
+    "eyebrow": "The Practiced Humility",
+    "quote": "Expertise earns authority. Beginner\u2019s mind earns insight. You don\u2019t get to choose one and skip the other \u2014 <em>you need both, in tension, always.</em>",
+    "footer": "The most useful thing your experience gives you is the ability to notice when it\u2019s working against you."
+  },
+  "closingQuote": {
+    "text": "In the beginner\u2019s mind there are many possibilities, but in the expert\u2019s mind there are few.",
+    "attribution": "Shunryu Suzuki",
+    "role": "Zen Mind, Beginner\u2019s Mind (1970)"
+  }
+}

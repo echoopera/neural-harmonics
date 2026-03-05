@@ -1,606 +1,723 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Joke Generator</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ["Inter", "system-ui", "sans-serif"],
-            },
-            colors: {
-              stage: {
-                900: "#0f0b1a",
-                800: "#1a1328",
-                700: "#251c36",
-                600: "#302544",
-              },
-              spotlight: {
-                400: "#f5c542",
-                500: "#e5a828",
-                600: "#c98f1a",
-              },
-              neon: {
-                pink: "#ff6b9d",
-                purple: "#c084fc",
-                blue: "#60a5fa",
-              },
-            },
-          },
-        },
-      };
-    </script>
-    <style>
-      body {
-        background-color: #0f0b1a;
-      }
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      @keyframes shimmer {
-        0% {
-          background-position: -200% 0;
-        }
-        100% {
-          background-position: 200% 0;
-        }
-      }
-      @keyframes pulse-glow {
-        0%,
-        100% {
-          box-shadow: 0 0 20px rgba(245, 197, 66, 0.15);
-        }
-        50% {
-          box-shadow: 0 0 40px rgba(245, 197, 66, 0.3);
-        }
-      }
-      @keyframes spotlight-sweep {
-        0% {
-          opacity: 0.03;
-          transform: translateX(-50%) rotate(-5deg);
-        }
-        50% {
-          opacity: 0.07;
-          transform: translateX(0%) rotate(0deg);
-        }
-        100% {
-          opacity: 0.03;
-          transform: translateX(50%) rotate(5deg);
-        }
-      }
-      .joke-card-enter {
-        animation: fadeInUp 0.4s ease-out forwards;
-      }
-      .shimmer-loading {
-        background: linear-gradient(
-          90deg,
-          #251c36 25%,
-          #302544 50%,
-          #251c36 75%
-        );
-        background-size: 200% 100%;
-        animation: shimmer 1.5s infinite;
-      }
-      .spotlight-bg {
-        animation: spotlight-sweep 8s ease-in-out infinite alternate;
-      }
-      .input-glow:focus {
-        animation: pulse-glow 2s ease-in-out infinite;
-      }
-    </style>
-  </head>
-  <body class="font-sans text-white min-h-screen">
-    <div id="root"></div>
-    <script type="text/babel">
-      const { useState, useRef, useCallback } = React;
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Design Thinking — Daily Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-      const ANTHROPIC_SYSTEM_PROMPT = `You are a world-class comedy writer specializing in observational humor, in the style of Jerry Seinfeld, John Mulaney, and Nate Bargatze. Your job is to write brilliant, clean jokes about a given topic.
+  <!-- ─── TOP BAR ─── -->
+  <header class="top-bar">
+    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle navigation">
+      <svg id="hamburgerIcon" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+        <line x1="2" y1="4.5" x2="16" y2="4.5"/>
+        <line x1="2" y1="9"   x2="16" y2="9"/>
+        <line x1="2" y1="13.5" x2="16" y2="13.5"/>
+      </svg>
+    </button>
 
-Rules:
-- Write between 5 and 10 jokes
-- Every joke must be CLEAN and family-friendly. No profanity, no shock humor, no crude or sexual content.
-- Focus on observational comedy: find the absurdity in everyday things, clever wordplay, and smart setups with satisfying punchlines.
-- Mix formats: some one-liners, some short setup-punchline jokes, and some brief observational bits (2-3 sentences max).
-- Be witty and intelligent. Reward the audience for thinking.
-- Avoid hacky, groan-worthy puns or generic dad jokes. If you use a pun, it must be genuinely clever.
-- Each joke should feel like it could be part of a stand-up set — natural, conversational, with good rhythm.
-- Do NOT repeat the same structural pattern for every joke. Vary the format and approach.
+    <span class="top-bar-title">Design Thinking</span>
 
-Output format:
-Return ONLY a JSON array of strings, where each string is one joke. No markdown, no commentary, no numbering inside the strings. Example:
-["First joke here.", "Second joke here. With a punchline.", "Third joke."]`;
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle color mode">
+      <span class="theme-toggle-icon" id="themeIcon">
+        <svg id="iconSun" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="4"/>
+          <line x1="12" y1="2"  x2="12" y2="5"/>
+          <line x1="12" y1="19" x2="12" y2="22"/>
+          <line x1="2"  y1="12" x2="5"  y2="12"/>
+          <line x1="19" y1="12" x2="22" y2="12"/>
+          <line x1="4.22"  y1="4.22"  x2="6.34"  y2="6.34"/>
+          <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
+          <line x1="19.78" y1="4.22"  x2="17.66" y2="6.34"/>
+          <line x1="6.34"  y1="17.66" x2="4.22"  y2="19.78"/>
+        </svg>
+        <svg id="iconMoon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:none">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </span>
+      <span class="theme-toggle-label" id="themeLabel">Light</span>
+    </button>
+  </header>
 
-      function MicrophoneIcon({ className }) {
-        return (
-          <svg
-            className={className}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
-            <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-            <line x1="12" y1="19" x2="12" y2="23" />
-            <line x1="8" y1="23" x2="16" y2="23" />
-          </svg>
-        );
-      }
+  <!-- ─── SIDEBAR BACKDROP ─── -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
-      function CopyIcon({ className }) {
-        return (
-          <svg
-            className={className}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-          </svg>
-        );
-      }
+  <!-- ─── SIDEBAR ─── -->
+  <nav class="sidebar" id="sidebar" aria-label="Blog entries">
+    <div class="sidebar-inner">
+      <div class="sidebar-blog-title">Design Thinking</div>
+      <div id="sidebarNav"></div>
+    </div>
+  </nav>
 
-      function CheckIcon({ className }) {
-        return (
-          <svg
-            className={className}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polyline points="20 6 9 17 4 12" />
-          </svg>
-        );
+  <!-- ─── LAYOUT ─── -->
+  <div class="layout">
+    <main class="main-content" id="mainContent" role="main">
+      <div class="loading-state">Loading&hellip;</div>
+    </main>
+  </div>
+
+  <script>
+    // ═══════════════════════════════════════════════════════════════
+    // DATA — fetched from manifest.json and individual entry files
+    // ═══════════════════════════════════════════════════════════════
+
+    let MANIFEST = [];                 // [{date, type, title, month?}]
+    const ENTRY_CACHE = new Map();     // date → full entry object
+
+    async function fetchManifest() {
+      const res = await fetch('./manifest.json');
+      if (!res.ok) throw new Error(`Failed to load manifest (${res.status})`);
+      MANIFEST = await res.json();
+    }
+
+    async function fetchEntry(date) {
+      if (ENTRY_CACHE.has(date)) return ENTRY_CACHE.get(date);
+      const [y, m] = date.split('-');
+      const res = await fetch(`./entries/${y}-${m}/${date}.json`);
+      if (!res.ok) throw new Error(`Failed to load entry ${date} (${res.status})`);
+      const data = await res.json();
+      ENTRY_CACHE.set(date, data);
+      return data;
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // HELPERS
+    // ═══════════════════════════════════════════════════════════════
+
+    function formatDate(dateStr) {
+      const [y, m, d] = dateStr.split('-').map(Number);
+      const date = new Date(y, m - 1, d);
+      return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    }
+
+    function formatDateLong(dateStr) {
+      const [y, m, d] = dateStr.split('-').map(Number);
+      const date = new Date(y, m - 1, d);
+      return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    }
+
+    function getMonthKey(dateStr) {
+      const [y, m] = dateStr.split('-');
+      return `${y}-${m}`;
+    }
+
+    function formatMonthLabel(monthKey) {
+      const [y, m] = monthKey.split('-').map(Number);
+      const date = new Date(y, m - 1, 1);
+      return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    }
+
+    function truncateTitle(title, maxLen = 28) {
+      if (title.length <= maxLen) return title;
+      return title.slice(0, maxLen).trim() + '\u2026';
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // VISUAL BUILDERS
+    // ═══════════════════════════════════════════════════════════════
+
+    function buildRingsVisual() {
+      return `<div class="visual-rings">
+        <div class="ring ring-4"></div>
+        <div class="ring ring-3"></div>
+        <div class="ring ring-2"></div>
+        <div class="ring ring-1"></div>
+        <div class="ring-dot"></div>
+      </div>`;
+    }
+
+    function buildClarityVisual() {
+      return `<div class="visual-clarity">
+        <span class="clarity-label clarity-top">Ambiguous</span>
+        <div class="clarity-beam"></div>
+        <span class="clarity-label clarity-bottom">Clear</span>
+      </div>`;
+    }
+
+    function buildFrameVisual() {
+      return `<div class="visual-frame-wrap">
+        <svg class="frame-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <rect class="frame-outer" x="8"  y="8"  width="184" height="184" rx="2"/>
+          <rect class="frame-inner" x="32" y="32" width="136" height="136" rx="1"/>
+          <line class="frame-cross-h" x1="8" y1="100" x2="192" y2="100"/>
+          <line class="frame-cross-v" x1="100" y1="8" x2="100" y2="192"/>
+          <circle class="frame-center" cx="100" cy="100" r="3"/>
+        </svg>
+      </div>`;
+    }
+
+    function buildVisual(type) {
+      if (type === 'rings')   return buildRingsVisual();
+      if (type === 'clarity') return buildClarityVisual();
+      if (type === 'frame')   return buildFrameVisual();
+      return '';
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // RENDER ENTRY
+    // ═══════════════════════════════════════════════════════════════
+
+    let currentRevealObserver = null;
+
+    function renderEntry(entry, isFirstLoad) {
+      if (entry.type === 'summary') {
+        renderSummary(entry);
+        return;
       }
 
-      function SparkleIcon({ className }) {
-        return (
-          <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 0L14.59 8.41L23 11L14.59 13.59L12 22L9.41 13.59L1 11L9.41 8.41L12 0Z" />
-          </svg>
-        );
+      const main = document.getElementById('mainContent');
+      const entryIndex = MANIFEST.findIndex(e => e.date === entry.date);
+      const prevMeta = entryIndex > 0 ? MANIFEST[entryIndex - 1] : null;
+      const nextMeta = entryIndex < MANIFEST.length - 1 ? MANIFEST[entryIndex + 1] : null;
+
+      const principleCount = entry.principles.length;
+
+      const principlesHTML = entry.principles.map((p, i) => {
+        const isEven = i % 2 === 1;
+        const contentHTML = `<div class="principle-content">
+          <div class="principle-label">
+            <span class="principle-num">${p.number}</span>
+            <div class="principle-label-line"></div>
+          </div>
+          <h2 class="principle-headline">${p.headline}</h2>
+          ${p.body.map(para => `<p class="principle-body">${para}</p>`).join('\n')}
+          <blockquote class="principle-callout">${p.callout}</blockquote>
+        </div>`;
+
+        const visualHTML = `<div class="principle-visual">${buildVisual(p.visual)}</div>`;
+
+        return `<article class="principle" data-index="${i + 1}" data-visual="${p.visual}">
+          ${isEven ? visualHTML : contentHTML}
+          ${isEven ? contentHTML : visualHTML}
+        </article>`;
+      }).join('\n');
+
+      const actionsHTML = entry.actions.map((a, i) => `<div class="action-item">
+        <div class="action-meta">
+          <span class="action-num">${String(i + 1).padStart(2, '0')}</span>
+          <span class="action-tag">${a.tag}</span>
+        </div>
+        <div class="action-title">${a.title}</div>
+        <p class="action-desc">${a.desc}</p>
+        <p class="action-example">${a.example}</p>
+      </div>`).join('\n');
+
+      const prevHTML = prevMeta
+        ? `<button class="entry-nav-side left" onclick="navigateTo('${prevMeta.date}')">
+            <span class="entry-nav-arrow">
+              <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <polyline points="12,4 6,10 12,16"/>
+                <line x1="6" y1="10" x2="18" y2="10"/>
+              </svg>
+            </span>
+            <div class="entry-nav-meta">
+              <span class="entry-nav-date">${formatDate(prevMeta.date)}</span>
+              <span class="entry-nav-title">${truncateTitle(prevMeta.title)}</span>
+            </div>
+          </button>`
+        : `<div class="entry-nav-side left hidden" aria-hidden="true"></div>`;
+
+      const nextHTML = nextMeta
+        ? `<button class="entry-nav-side right" onclick="navigateTo('${nextMeta.date}')">
+            <div class="entry-nav-meta">
+              <span class="entry-nav-date">${formatDate(nextMeta.date)}</span>
+              <span class="entry-nav-title">${truncateTitle(nextMeta.title)}</span>
+            </div>
+            <span class="entry-nav-arrow">
+              <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <polyline points="8,4 14,10 8,16"/>
+                <line x1="2" y1="10" x2="14" y2="10"/>
+              </svg>
+            </span>
+          </button>`
+        : `<div class="entry-nav-side right disabled" aria-hidden="true">
+            <div class="entry-nav-meta">
+              <span class="entry-nav-date" style="opacity:0.35">Up to date</span>
+            </div>
+          </div>`;
+
+      const heroClass = isFirstLoad ? 'hero' : 'hero compact';
+
+      main.innerHTML = `
+        <section class="${heroClass}">
+          <div class="hero-eyebrow">${entry.theme}</div>
+          <div class="hero-date">${formatDateLong(entry.date)}</div>
+          <h1 class="hero-headline">${entry.title}</h1>
+          <p class="hero-body">${entry.subtitle}</p>
+          ${isFirstLoad ? `<div class="hero-scroll-hint">
+            <div class="scroll-line"></div>
+            <span class="scroll-label">Continue</span>
+          </div>` : ''}
+          <div class="hero-ghost" aria-hidden="true">${principleCount}</div>
+        </section>
+
+        <div class="principles">
+          ${principlesHTML}
+        </div>
+
+        <section class="coda">
+          <div class="coda-eyebrow">${entry.coda.eyebrow}</div>
+          <p class="coda-quote">${entry.coda.quote}</p>
+          <div class="coda-divider">
+            <div class="coda-divider-line"></div>
+            <div class="coda-divider-dot"></div>
+            <div class="coda-divider-line"></div>
+          </div>
+          <p class="coda-footer">${entry.coda.footer}</p>
+        </section>
+
+        <section class="actions">
+          <div class="actions-header">
+            <span class="actions-eyebrow">Put it to work</span>
+            <h2 class="actions-headline">Daily practices for the<br><em>thinking designer</em>.</h2>
+          </div>
+          <div class="actions-grid">
+            ${actionsHTML}
+          </div>
+        </section>
+
+        <section class="closing-quote">
+          <div class="closing-quote-mark">&ldquo;</div>
+          <p class="closing-quote-text">${entry.closingQuote.text}</p>
+          <div class="closing-quote-rule"></div>
+          <div class="closing-quote-attribution">${entry.closingQuote.attribution}</div>
+          <div class="closing-quote-role">${entry.closingQuote.role}</div>
+        </section>
+
+        <nav class="entry-nav" aria-label="Entry navigation">
+          ${prevHTML}
+          <div class="entry-nav-divider"></div>
+          ${nextHTML}
+        </nav>
+      `;
+
+      document.title = `${entry.title} \u2014 Design Thinking`;
+      setupScrollReveal();
+      updateSidebarActive(entry.date);
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // SCROLL REVEAL
+    // ═══════════════════════════════════════════════════════════════
+
+    function setupScrollReveal() {
+      if (currentRevealObserver) {
+        currentRevealObserver.disconnect();
       }
 
-      function JokeCard({ joke, index, total }) {
-        const [copied, setCopied] = useState(false);
+      currentRevealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
 
-        const handleCopy = useCallback(() => {
-          navigator.clipboard.writeText(joke).then(() => {
-            setCopied(true);
-            setTimeout(() => setCopied(false), 2000);
-          });
-        }, [joke]);
+          const el = entry.target;
+          el.classList.add('visible');
 
-        return (
-          <div
-            className="joke-card-enter group relative"
-            style={{ animationDelay: `${index * 80}ms`, opacity: 0 }}
-          >
-            <div className="relative bg-gradient-to-br from-stage-700/80 to-stage-800/80 backdrop-blur-sm border border-white/[0.06] rounded-2xl p-6 hover:border-spotlight-400/20 transition-all duration-300 hover:shadow-lg hover:shadow-spotlight-400/5">
-              <div className="flex items-start gap-4">
-                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-spotlight-400/10 text-spotlight-400 flex items-center justify-center text-sm font-semibold border border-spotlight-400/20">
-                  {index + 1}
-                </span>
-                <p className="flex-1 text-gray-200 leading-relaxed text-[15px] pt-1">
-                  {joke}
-                </p>
-                <button
-                  onClick={handleCopy}
-                  className="flex-shrink-0 p-2 rounded-lg text-gray-500 hover:text-spotlight-400 hover:bg-spotlight-400/10 transition-all duration-200 opacity-0 group-hover:opacity-100"
-                  title="Copy joke"
-                >
-                  {copied ? (
-                    <CheckIcon className="w-4 h-4 text-green-400" />
-                  ) : (
-                    <CopyIcon className="w-4 h-4" />
-                  )}
+          const clarityVisual = el.querySelector('.visual-clarity');
+          if (clarityVisual) {
+            setTimeout(() => {
+              clarityVisual.querySelector('.clarity-beam')?.classList.add('extended');
+              clarityVisual.querySelector('.clarity-top')?.classList.add('sharpened');
+              clarityVisual.querySelector('.clarity-bottom')?.classList.add('sharpened');
+            }, 200);
+          }
+
+          const frameWrap = el.querySelector('.visual-frame-wrap');
+          if (frameWrap) {
+            setTimeout(() => {
+              frameWrap.classList.add('frame-drawn');
+            }, 200);
+          }
+
+          currentRevealObserver.unobserve(el);
+        });
+      }, { threshold: 0.2 });
+
+      document.querySelectorAll('.principle, .coda, .actions, .closing-quote').forEach(el => {
+        currentRevealObserver.observe(el);
+      });
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // SIDEBAR BUILDER
+    // ═══════════════════════════════════════════════════════════════
+
+    let isFirstRender = true;
+
+    function buildSidebar() {
+      const nav = document.getElementById('sidebarNav');
+
+      const months = {};
+      [...MANIFEST].reverse().forEach(entry => {
+        const key = getMonthKey(entry.date);
+        if (!months[key]) months[key] = [];
+        months[key].push(entry);
+      });
+
+      let html = '';
+      Object.entries(months).forEach(([monthKey, monthEntries]) => {
+        html += `
+          <div class="sidebar-month" data-month="${monthKey}" id="month-${monthKey}">
+            <div class="sidebar-month-header" onclick="toggleMonth('${monthKey}')">
+              <span class="sidebar-month-label">${formatMonthLabel(monthKey)}</span>
+              <span class="sidebar-month-chevron">
+                <svg viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+                  <polyline points="2,4 6,8 10,4"/>
+                </svg>
+              </span>
+            </div>
+            <div class="sidebar-entries">
+              ${monthEntries.map(entry => `
+                <button class="sidebar-entry${entry.type === 'summary' ? ' sidebar-entry--summary' : ''}" data-date="${entry.date}" onclick="navigateTo('${entry.date}')">
+                  <div class="sidebar-entry-date">${entry.type === 'summary' ? '\u2014 ' + entry.month + ' Summary' : formatDate(entry.date)}</div>
+                  <div class="sidebar-entry-title">${entry.type === 'summary' ? 'Monthly Review' : truncateTitle(entry.title, 26)}</div>
                 </button>
-              </div>
+              `).join('')}
             </div>
           </div>
-        );
+        `;
+      });
+
+      nav.innerHTML = html;
+    }
+
+    function toggleMonth(monthKey) {
+      const monthEl = document.getElementById(`month-${monthKey}`);
+      if (monthEl) {
+        monthEl.classList.toggle('open');
       }
+    }
 
-      function LoadingSkeleton() {
-        const messages = [
-          "Writing material\u2026",
-          "Workshopping punchlines\u2026",
-          "Timing the delivery\u2026",
-          "Rehearsing in the mirror\u2026",
-          "Reading the room\u2026",
-        ];
-        const [msgIndex, setMsgIndex] = useState(0);
+    function updateSidebarActive(activeDate) {
+      document.querySelectorAll('.sidebar-entry').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.date === activeDate);
+      });
 
-        React.useEffect(() => {
-          const interval = setInterval(() => {
-            setMsgIndex((i) => (i + 1) % messages.length);
-          }, 2200);
-          return () => clearInterval(interval);
-        }, []);
+      const monthKey = getMonthKey(activeDate);
+      const monthEl = document.getElementById(`month-${monthKey}`);
+      if (monthEl && !monthEl.classList.contains('open')) {
+        monthEl.classList.add('open');
+      }
+    }
 
-        return (
-          <div className="space-y-4 mt-10">
-            <div className="flex items-center justify-center gap-3 mb-8">
-              <div className="relative">
-                <MicrophoneIcon className="w-6 h-6 text-spotlight-400 animate-bounce" />
-              </div>
-              <p className="text-spotlight-400 font-medium text-lg">
-                {messages[msgIndex]}
-              </p>
-            </div>
-            {[...Array(5)].map((_, i) => (
-              <div
-                key={i}
-                className="shimmer-loading rounded-2xl h-24"
-                style={{ animationDelay: `${i * 200}ms` }}
-              />
-            ))}
+    // ═══════════════════════════════════════════════════════════════
+    // HASH ROUTING
+    // ═══════════════════════════════════════════════════════════════
+
+    async function getEntryFromHash() {
+      const hash = window.location.hash.replace('#', '');
+      if (hash) {
+        const found = MANIFEST.find(e => e.date === hash);
+        if (found) return await fetchEntry(hash);
+      }
+      // Default: most recent entry
+      const latest = MANIFEST[MANIFEST.length - 1];
+      return await fetchEntry(latest.date);
+    }
+
+    function navigateTo(date) {
+      window.location.hash = date;
+      if (window.innerWidth <= 768) {
+        closeSidebar();
+      }
+    }
+
+    function renderSummary(entry) {
+      const main = document.getElementById('mainContent');
+      const entryIndex = MANIFEST.findIndex(e => e.date === entry.date);
+      const prevMeta = entryIndex > 0 ? MANIFEST[entryIndex - 1] : null;
+      const nextMeta = entryIndex < MANIFEST.length - 1 ? MANIFEST[entryIndex + 1] : null;
+
+      const themesHTML = entry.themes.map(t => `
+        <div class="summary-theme">
+          <div class="summary-theme-title">${t.title}</div>
+          <p class="summary-theme-body">${t.summary}</p>
+        </div>
+      `).join('');
+
+      const exercisesHTML = entry.exercises.map(ex => `
+        <div class="summary-exercise">
+          <div class="summary-exercise-meta">
+            <span class="summary-exercise-num">${ex.number}</span>
+            <span class="summary-exercise-tag">${ex.duration}</span>
+            <span class="summary-exercise-tag">${ex.format}</span>
           </div>
-        );
-      }
+          <div class="summary-exercise-title">${ex.title}</div>
+          <p class="summary-exercise-desc">${ex.desc}</p>
+          <p class="summary-exercise-outcome"><em>Outcome:</em> ${ex.outcome}</p>
+        </div>
+      `).join('');
 
-      function ApiKeyModal({ onSubmit }) {
-        const [key, setKey] = useState("");
+      const prevNextHTML = `
+        <nav class="entry-nav" aria-label="Entry navigation">
+          ${prevMeta
+            ? `<button class="entry-nav-side left" onclick="navigateTo('${prevMeta.date}')">
+                <span class="entry-nav-arrow">
+                  <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <polyline points="12,4 6,10 12,16"/>
+                    <line x1="6" y1="10" x2="18" y2="10"/>
+                  </svg>
+                </span>
+                <div class="entry-nav-meta">
+                  <span class="entry-nav-date">${formatDate(prevMeta.date)}</span>
+                  <span class="entry-nav-title">${truncateTitle(prevMeta.title)}</span>
+                </div>
+              </button>`
+            : `<div class="entry-nav-side left hidden" aria-hidden="true"></div>`}
+          <div class="entry-nav-divider"></div>
+          ${nextMeta
+            ? `<button class="entry-nav-side right" onclick="navigateTo('${nextMeta.date}')">
+                <div class="entry-nav-meta">
+                  <span class="entry-nav-date">${formatDate(nextMeta.date)}</span>
+                  <span class="entry-nav-title">${truncateTitle(nextMeta.title)}</span>
+                </div>
+                <span class="entry-nav-arrow">
+                  <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <polyline points="8,4 14,10 8,16"/>
+                    <line x1="2" y1="10" x2="14" y2="10"/>
+                  </svg>
+                </span>
+              </button>`
+            : `<div class="entry-nav-side right disabled" aria-hidden="true">
+                <div class="entry-nav-meta">
+                  <span class="entry-nav-date" style="opacity:0.35">Up to date</span>
+                </div>
+              </div>`}
+        </nav>`;
 
-        return (
-          <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-            <div className="bg-stage-700 border border-white/10 rounded-2xl p-8 max-w-md w-full shadow-2xl">
-              <h2 className="text-xl font-bold text-white mb-2">
-                API Key Required
-              </h2>
-              <p className="text-gray-400 text-sm mb-6">
-                Enter your Anthropic API key to generate jokes. Your key stays
-                in your browser and is never stored on any server.
-              </p>
-              <input
-                type="password"
-                value={key}
-                onChange={(e) => setKey(e.target.value)}
-                placeholder="sk-ant-..."
-                className="w-full bg-stage-900 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-spotlight-400/50 mb-4 text-sm"
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" && key.trim()) onSubmit(key.trim());
-                }}
-              />
-              <button
-                onClick={() => key.trim() && onSubmit(key.trim())}
-                disabled={!key.trim()}
-                className="w-full bg-spotlight-400 hover:bg-spotlight-500 disabled:opacity-40 disabled:cursor-not-allowed text-stage-900 font-semibold py-3 rounded-xl transition-colors"
-              >
-                Save & Continue
-              </button>
-            </div>
+      main.innerHTML = `
+        <div class="summary-wrap">
+          <div class="summary-hero">
+            <div class="summary-eyebrow">${entry.month}</div>
+            <h1 class="summary-headline">${entry.title}</h1>
+            <p class="summary-subtitle">${entry.subtitle}</p>
           </div>
-        );
-      }
 
-      function App() {
-        const [apiKey, setApiKey] = useState(
-          () => localStorage.getItem("anthropic_api_key") || ""
-        );
-        const [topic, setTopic] = useState("");
-        const [jokes, setJokes] = useState([]);
-        const [loading, setLoading] = useState(false);
-        const [error, setError] = useState("");
-        const [lastTopic, setLastTopic] = useState("");
-        const [showKeyModal, setShowKeyModal] = useState(!apiKey);
-        const inputRef = useRef(null);
-        const resultsRef = useRef(null);
-
-        const handleApiKey = useCallback((key) => {
-          setApiKey(key);
-          localStorage.setItem("anthropic_api_key", key);
-          setShowKeyModal(false);
-        }, []);
-
-        const generateJokes = useCallback(
-          async (subject) => {
-            if (!subject.trim() || !apiKey) return;
-
-            setLoading(true);
-            setError("");
-            setJokes([]);
-            setLastTopic(subject.trim());
-
-            try {
-              const response = await fetch(
-                "https://api.anthropic.com/v1/messages",
-                {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                    "x-api-key": apiKey,
-                    "anthropic-version": "2023-06-01",
-                    "anthropic-dangerous-direct-browser-access": "true",
-                  },
-                  body: JSON.stringify({
-                    model: "claude-sonnet-4-20250514",
-                    max_tokens: 1500,
-                    system: ANTHROPIC_SYSTEM_PROMPT,
-                    messages: [
-                      {
-                        role: "user",
-                        content: `Write jokes about: ${subject.trim()}`,
-                      },
-                    ],
-                  }),
-                }
-              );
-
-              if (!response.ok) {
-                const errBody = await response.json().catch(() => null);
-                if (response.status === 401) {
-                  localStorage.removeItem("anthropic_api_key");
-                  setApiKey("");
-                  setShowKeyModal(true);
-                  throw new Error(
-                    "Invalid API key. Please enter a valid key."
-                  );
-                }
-                throw new Error(
-                  errBody?.error?.message ||
-                    `API error (${response.status})`
-                );
-              }
-
-              const data = await response.json();
-              const text = data.content?.[0]?.text || "";
-
-              const jsonMatch = text.match(/\[[\s\S]*\]/);
-              if (!jsonMatch) {
-                throw new Error("Unexpected response format.");
-              }
-
-              const parsed = JSON.parse(jsonMatch[0]);
-              if (!Array.isArray(parsed) || parsed.length === 0) {
-                throw new Error("No jokes were generated. Try again!");
-              }
-
-              setJokes(parsed);
-
-              setTimeout(() => {
-                resultsRef.current?.scrollIntoView({
-                  behavior: "smooth",
-                  block: "start",
-                });
-              }, 100);
-            } catch (err) {
-              setError(err.message || "Something went wrong. Please try again.");
-            } finally {
-              setLoading(false);
-            }
-          },
-          [apiKey]
-        );
-
-        const handleSubmit = useCallback(
-          (e) => {
-            e.preventDefault();
-            generateJokes(topic);
-          },
-          [topic, generateJokes]
-        );
-
-        const handleReset = useCallback(() => {
-          setTopic("");
-          setJokes([]);
-          setError("");
-          setLastTopic("");
-          inputRef.current?.focus();
-        }, []);
-
-        const handleRegenerate = useCallback(() => {
-          generateJokes(lastTopic);
-        }, [lastTopic, generateJokes]);
-
-        const suggestions = [
-          "Airports",
-          "Dating apps",
-          "Working from home",
-          "Cats vs Dogs",
-          "Spreadsheets",
-          "Grocery stores",
-        ];
-
-        return (
-          <div className="min-h-screen relative overflow-hidden">
-            {/* Background effects */}
-            <div className="fixed inset-0 pointer-events-none">
-              <div
-                className="spotlight-bg absolute top-0 left-1/2 w-[800px] h-[600px] bg-gradient-to-b from-spotlight-400/5 to-transparent"
-                style={{
-                  clipPath: "polygon(40% 0%, 60% 0%, 80% 100%, 20% 100%)",
-                }}
-              />
-              <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_rgba(192,132,252,0.04)_0%,_transparent_60%)]" />
+          <div class="summary-section">
+            <div class="summary-section-label">
+              <span class="summary-section-num">\u2014</span>
+              <span class="summary-section-heading">Themes of the Month</span>
             </div>
-
-            {showKeyModal && <ApiKeyModal onSubmit={handleApiKey} />}
-
-            <div className="relative z-10 max-w-3xl mx-auto px-4 py-12 sm:py-20">
-              {/* Header */}
-              <header className="text-center mb-12">
-                <div className="inline-flex items-center gap-3 mb-6">
-                  <div className="p-3 rounded-2xl bg-spotlight-400/10 border border-spotlight-400/20">
-                    <MicrophoneIcon className="w-8 h-8 text-spotlight-400" />
-                  </div>
-                </div>
-                <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight mb-3">
-                  <span className="bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
-                    Joke Generator
-                  </span>
-                </h1>
-                <p className="text-gray-400 text-lg max-w-md mx-auto">
-                  Enter any topic and get instant observational comedy, powered
-                  by AI.
-                </p>
-              </header>
-
-              {/* Input Form */}
-              <form onSubmit={handleSubmit} className="mb-6">
-                <div className="relative">
-                  <input
-                    ref={inputRef}
-                    type="text"
-                    value={topic}
-                    onChange={(e) => setTopic(e.target.value)}
-                    placeholder='Try "airports" or "online shopping"'
-                    disabled={loading}
-                    className="input-glow w-full bg-stage-700/60 backdrop-blur border border-white/[0.08] rounded-2xl pl-5 pr-44 py-5 text-white text-lg placeholder-gray-500 focus:outline-none focus:border-spotlight-400/40 transition-all duration-300 disabled:opacity-50"
-                  />
-                  <button
-                    type="submit"
-                    disabled={loading || !topic.trim()}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-gradient-to-r from-spotlight-400 to-spotlight-500 hover:from-spotlight-500 hover:to-spotlight-600 disabled:from-gray-600 disabled:to-gray-700 disabled:cursor-not-allowed text-stage-900 font-bold px-6 py-3 rounded-xl transition-all duration-200 flex items-center gap-2 text-sm"
-                  >
-                    Make Me Laugh
-                    <span className="text-base">🎤</span>
-                  </button>
-                </div>
-              </form>
-
-              {/* Suggestion chips */}
-              {!jokes.length && !loading && (
-                <div className="flex flex-wrap justify-center gap-2 mb-10">
-                  {suggestions.map((s) => (
-                    <button
-                      key={s}
-                      onClick={() => {
-                        setTopic(s);
-                        generateJokes(s);
-                      }}
-                      className="px-4 py-2 rounded-full bg-stage-700/50 border border-white/[0.06] text-gray-400 text-sm hover:text-spotlight-400 hover:border-spotlight-400/30 hover:bg-spotlight-400/5 transition-all duration-200"
-                    >
-                      {s}
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              {/* Error */}
-              {error && (
-                <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-4 mb-6 text-center">
-                  <p className="text-red-400 text-sm">{error}</p>
-                  <button
-                    onClick={() => setError("")}
-                    className="text-red-400/60 hover:text-red-400 text-xs mt-2 underline"
-                  >
-                    Dismiss
-                  </button>
-                </div>
-              )}
-
-              {/* Loading */}
-              {loading && <LoadingSkeleton />}
-
-              {/* Results */}
-              {jokes.length > 0 && !loading && (
-                <div ref={resultsRef}>
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="flex items-center gap-2">
-                      <SparkleIcon className="w-4 h-4 text-spotlight-400" />
-                      <h2 className="text-lg font-semibold text-white">
-                        Jokes about{" "}
-                        <span className="text-spotlight-400">
-                          {lastTopic}
-                        </span>
-                      </h2>
-                    </div>
-                    <span className="text-gray-500 text-sm">
-                      {jokes.length} jokes
-                    </span>
-                  </div>
-
-                  <div className="space-y-3">
-                    {jokes.map((joke, i) => (
-                      <JokeCard
-                        key={`${lastTopic}-${i}`}
-                        joke={joke}
-                        index={i}
-                        total={jokes.length}
-                      />
-                    ))}
-                  </div>
-
-                  {/* Action buttons */}
-                  <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-10">
-                    <button
-                      onClick={handleRegenerate}
-                      className="w-full sm:w-auto px-6 py-3 rounded-xl bg-stage-700/60 border border-white/[0.08] text-white font-medium hover:border-spotlight-400/30 hover:text-spotlight-400 transition-all duration-200 flex items-center justify-center gap-2"
-                    >
-                      <svg
-                        className="w-4 h-4"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <polyline points="23 4 23 10 17 10" />
-                        <polyline points="1 20 1 14 7 14" />
-                        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
-                      </svg>
-                      Fresh Material
-                    </button>
-                    <button
-                      onClick={handleReset}
-                      className="w-full sm:w-auto px-6 py-3 rounded-xl bg-stage-700/60 border border-white/[0.08] text-gray-400 font-medium hover:border-white/20 hover:text-white transition-all duration-200"
-                    >
-                      Try Another Topic
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {/* Footer */}
-              <footer className="text-center mt-20 text-gray-600 text-xs">
-                <p>
-                  Powered by Claude &middot; Observational comedy on demand
-                </p>
-                {apiKey && (
-                  <button
-                    onClick={() => setShowKeyModal(true)}
-                    className="text-gray-600 hover:text-gray-400 underline mt-1"
-                  >
-                    Change API key
-                  </button>
-                )}
-              </footer>
-            </div>
+            <div class="summary-themes">${themesHTML}</div>
           </div>
-        );
+
+          <div class="summary-section summary-section--exercises">
+            <div class="summary-section-label">
+              <span class="summary-section-num">\u2014</span>
+              <span class="summary-section-heading">Design Exercises</span>
+            </div>
+            <p class="summary-exercises-intro">Three to five hands-on exercises to carry this month's thinking into your practice.</p>
+            <div class="summary-exercises">${exercisesHTML}</div>
+          </div>
+
+          <div class="closing-quote visible">
+            <div class="closing-quote-mark">&ldquo;</div>
+            <p class="closing-quote-text">${entry.closingQuote.text}</p>
+            <div class="closing-quote-rule"></div>
+            <div class="closing-quote-attribution">${entry.closingQuote.attribution}</div>
+            <div class="closing-quote-role">${entry.closingQuote.role}</div>
+          </div>
+
+          ${prevNextHTML}
+        </div>
+      `;
+
+      document.title = `${entry.title} \u2014 Design Thinking`;
+      updateSidebarActive(entry.date);
+    }
+
+    async function handleRouteChange() {
+      const firstLoad = isFirstRender;
+      isFirstRender = false;
+
+      try {
+        const entry = await getEntryFromHash();
+        renderEntry(entry, firstLoad);
+      } catch (err) {
+        document.getElementById('mainContent').innerHTML =
+          `<div class="loading-state">Failed to load entry. Please refresh.</div>`;
+        console.error(err);
       }
 
-      const root = ReactDOM.createRoot(document.getElementById("root"));
-      root.render(<App />);
-    </script>
-  </body>
+      if (!firstLoad) {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+    }
+
+    window.addEventListener('hashchange', () => handleRouteChange());
+
+    // ═══════════════════════════════════════════════════════════════
+    // SIDEBAR TOGGLE
+    // ═══════════════════════════════════════════════════════════════
+
+    let sidebarOpen = null;
+
+    function setSidebarState(open) {
+      sidebarOpen = open;
+      const sidebar = document.getElementById('sidebar');
+      const main = document.getElementById('mainContent');
+      const backdrop = document.getElementById('sidebarBackdrop');
+      const isDesktop = window.innerWidth > 768;
+
+      if (open) {
+        sidebar.classList.remove('closed');
+        if (isDesktop) {
+          main.classList.remove('sidebar-closed');
+          backdrop.style.display = 'none';
+        } else {
+          backdrop.style.display = 'block';
+          requestAnimationFrame(() => {
+            backdrop.classList.add('visible');
+          });
+          document.body.style.overflow = 'hidden';
+        }
+      } else {
+        sidebar.classList.add('closed');
+        if (isDesktop) {
+          main.classList.add('sidebar-closed');
+        }
+        if (!isDesktop) {
+          backdrop.classList.remove('visible');
+          setTimeout(() => {
+            backdrop.style.display = 'none';
+          }, 300);
+          document.body.style.overflow = '';
+        }
+      }
+
+      updateHamburgerIcon(open);
+    }
+
+    function toggleSidebar() {
+      setSidebarState(!sidebarOpen);
+    }
+
+    function closeSidebar() {
+      setSidebarState(false);
+    }
+
+    function updateHamburgerIcon(open) {
+      const icon = document.getElementById('hamburgerIcon');
+      if (open) {
+        icon.innerHTML = `
+          <line x1="3" y1="3" x2="15" y2="15"/>
+          <line x1="15" y1="3" x2="3" y2="15"/>
+        `;
+      } else {
+        icon.innerHTML = `
+          <line x1="2" y1="4.5" x2="16" y2="4.5"/>
+          <line x1="2" y1="9"   x2="16" y2="9"/>
+          <line x1="2" y1="13.5" x2="16" y2="13.5"/>
+        `;
+      }
+    }
+
+    document.getElementById('hamburgerBtn').addEventListener('click', toggleSidebar);
+    document.getElementById('sidebarBackdrop').addEventListener('click', closeSidebar);
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        const isDesktop = window.innerWidth > 768;
+        const main = document.getElementById('mainContent');
+        const backdrop = document.getElementById('sidebarBackdrop');
+        const sidebar = document.getElementById('sidebar');
+
+        if (isDesktop) {
+          backdrop.style.display = 'none';
+          backdrop.classList.remove('visible');
+          document.body.style.overflow = '';
+          if (sidebarOpen) {
+            main.classList.remove('sidebar-closed');
+            sidebar.classList.remove('closed');
+          } else {
+            main.classList.add('sidebar-closed');
+            sidebar.classList.add('closed');
+          }
+        } else {
+          main.classList.remove('sidebar-closed');
+          if (sidebarOpen) {
+            backdrop.style.display = 'block';
+            requestAnimationFrame(() => backdrop.classList.add('visible'));
+            document.body.style.overflow = 'hidden';
+            sidebar.classList.remove('closed');
+          } else {
+            backdrop.style.display = 'none';
+            backdrop.classList.remove('visible');
+            document.body.style.overflow = '';
+            sidebar.classList.add('closed');
+          }
+        }
+      }, 100);
+    });
+
+    // ═══════════════════════════════════════════════════════════════
+    // THEME TOGGLE
+    // ═══════════════════════════════════════════════════════════════
+
+    const html_el    = document.documentElement;
+    const toggle     = document.getElementById('themeToggle');
+    const iconSun    = document.getElementById('iconSun');
+    const iconMoon   = document.getElementById('iconMoon');
+    const label      = document.getElementById('themeLabel');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+    function isDark() {
+      const t = html_el.dataset.theme;
+      if (t === 'dark')  return true;
+      if (t === 'light') return false;
+      return systemDark.matches;
+    }
+
+    function applyTheme(dark, persist) {
+      html_el.dataset.theme    = dark ? 'dark' : 'light';
+      iconSun.style.display    = dark ? '' : 'none';
+      iconMoon.style.display   = dark ? 'none' : '';
+      label.textContent        = dark ? 'Light' : 'Dark';
+      if (persist) {
+        localStorage.setItem('theme', dark ? 'dark' : 'light');
+      }
+    }
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      applyTheme(savedTheme === 'dark', false);
+    } else {
+      applyTheme(systemDark.matches, false);
+    }
+
+    toggle.addEventListener('click', () => applyTheme(!isDark(), true));
+    systemDark.addEventListener('change', e => {
+      if (!localStorage.getItem('theme')) {
+        applyTheme(e.matches, false);
+      }
+    });
+
+    // ═══════════════════════════════════════════════════════════════
+    // INIT
+    // ═══════════════════════════════════════════════════════════════
+
+    const isDesktopInit = window.innerWidth > 768;
+    setSidebarState(isDesktopInit);
+
+    fetchManifest()
+      .then(() => {
+        buildSidebar();
+        handleRouteChange();
+      })
+      .catch(err => {
+        console.error('Failed to load manifest:', err);
+        document.getElementById('mainContent').innerHTML =
+          `<div class="loading-state">Could not load content. Please refresh.</div>`;
+      });
+  </script>
+</body>
 </html>
